@@ -3,6 +3,8 @@ const { db } = require("../model");
 const Post = db.post;
 const User = db.user;
 
+// any id if starts with small letter and ends with "ID" then it is foreign key like "userID"
+
 //  GET /api/posts
 // Get Posts
 const getPosts = asyncHandler(async (req, res) => {
@@ -21,10 +23,12 @@ const createPost = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please enter a title");
   }
+  const user = await User.findOne({ where: { id: req.userId } });
   const post = await Post.create({
     title,
     body,
     userID: req.userId,
+    userName: user.name,
   });
   if (!post) {
     res.status(400);
@@ -49,7 +53,7 @@ const deletePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const postId = id;
   const post = await Post.findOne({ where: { id: postId } });
-  if (post.UserId === req.userId) {
+  if (post.userID === req.userId) {
     await Post.destroy({ where: { id } });
     res.status(204).json({ msg: "Post deleted successfully" });
   }
@@ -63,7 +67,7 @@ const updatePost = asyncHandler(async (req, res) => {
   const postId = id;
   const post = await Post.findOne({ where: { id: postId } });
   // check if valid user is updating
-  if (post.UserId === req.userId) {
+  if (post.userID === req.userId) {
     // updates the fields but not on database
     post.set(req.body);
     // this updates on database

@@ -45,6 +45,7 @@ const createComment = asyncHandler(async (req, res) => {
     // postId is id of post sent as params and postID is foreign key
     postID: postId,
     userID: req.userId,
+    userName: user.name,
   });
 
   res.status(200).json({
