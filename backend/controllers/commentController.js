@@ -31,13 +31,13 @@ const createComment = asyncHandler(async (req, res) => {
   }
 
   //   to check if user alreqady commented
-  const commentExists = await Comment.findOne({
-    where: { userID: req.userId, postID: postId },
-  });
-  if (commentExists) {
-    res.status(400);
-    throw new Error("User already commented");
-  }
+  // const commentExists = await Comment.findOne({
+  //   where: { userID: req.userId, postID: postId },
+  // });
+  // if (commentExists) {
+  //   res.status(400);
+  //   throw new Error("User already commented");
+  // }
 
   //   creating comment
   const comment = await Comment.create({
@@ -48,17 +48,17 @@ const createComment = asyncHandler(async (req, res) => {
     userName: user.name,
   });
 
-  res.status(200).json({
-    comment: `commented by ${user.name} and comment is :${comment.body} whereas title is : ${post.title}`,
-  });
+  res.status(200).json({ comment });
 });
 
 // DELETE /api/comments/:id
 // delete comment
 const deleteComment = asyncHandler(async (req, res) => {
+  console.log(req.params);
   await Comment.destroy({
     truncate: true,
   });
+  res.status(202).json(req.params);
 });
 
 module.exports = { createComment, getComments, deleteComment };
