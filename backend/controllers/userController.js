@@ -62,7 +62,6 @@ const register = asyncHandler(async (req, res) => {
         _id: user.id,
         name,
         email,
-        password,
         token,
       },
     });

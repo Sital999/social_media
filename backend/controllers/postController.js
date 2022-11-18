@@ -55,7 +55,7 @@ const deletePost = asyncHandler(async (req, res) => {
   const post = await Post.findOne({ where: { id: postId } });
   if (post.userID === req.userId) {
     await Post.destroy({ where: { id } });
-    res.status(204).json({ msg: "Post deleted successfully" });
+    res.status(202).json({ id });
   }
   res.status(401).json({ msg: "Not authorized" });
 });
@@ -72,7 +72,7 @@ const updatePost = asyncHandler(async (req, res) => {
     post.set(req.body);
     // this updates on database
     await post.save();
-    res.status(201).json({ msg: "Updated post successfully" });
+    res.status(201).json({ post });
   }
   res.status(401).json({ msg: "Not authorized" });
 });
