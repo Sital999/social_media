@@ -59,6 +59,7 @@ const RegisterPage = () => {
     if (user) {
       navigate("/dashboard");
     }
+
     dispatch(reset());
   }, [user, isError, isSuccess, message]);
 

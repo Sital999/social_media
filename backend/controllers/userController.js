@@ -54,15 +54,13 @@ const register = asyncHandler(async (req, res) => {
     password: hashedPassword,
   });
 
-  const token = generateToken(user.id);
-
   if (user) {
     res.status(200).json({
       user: {
-        _id: user.id,
+        id: user.id,
         name,
         email,
-        token,
+        token: generateToken(user.id),
       },
     });
   }

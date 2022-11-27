@@ -205,7 +205,7 @@ const UserPage = () => {
                               </div>
                             </div>
                             {/* like and comment section */}
-                            {showComments ? (
+                            {showComments && updateId === post.id ? (
                               <div className="grid grid-cols-1 justify-start">
                                 <CommentPage postId={updateId} />
                               </div>

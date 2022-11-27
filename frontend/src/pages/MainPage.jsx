@@ -113,7 +113,7 @@ const MainPage = ({ posts }) => {
                                 <h4>{post.body}</h4>
                               </div>
                             </div>
-                            {showComments ? (
+                            {showComments && updateId === post.id ? (
                               <div className="grid grid-cols-1 justify-start">
                                 <CommentPage postId={updateId} />
                               </div>
