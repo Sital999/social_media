@@ -55,7 +55,7 @@ const register = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    res.status(200).json({
+    res.status(201).json({
       user: {
         id: user.id,
         name,
